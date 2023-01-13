@@ -5,31 +5,31 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.IO.Ports;
+using System.Runtime.CompilerServices;
 
 namespace ArduinoCHomeController
 {
     internal class Communication
     {
-        private SerialPort _serialport;
-        public SerialPort SerialPort { get => _serialport; set => _serialport = value; }
-        public Communication(int baudRate, string portName)
+        private static readonly SerialPort SerialPort  = new SerialPort();
+
+        public static void SetBaudRateAndPortName(int baudRate,string portName)
         {
-            SerialPort= new SerialPort();
             SerialPort.BaudRate = baudRate;
             SerialPort.PortName = portName;
-        }
-        public void StartCommunicationWithArduino()
+        } 
+        public static void StartCommunicationWithArduino()
         {
             SerialPort.Open();
         }
-        public void StopCommunicationWithArduino()
+        public static void StopCommunicationWithArduino()
         {
             SerialPort.Close();
         }
-        public void ControllLight(bool lightMode)
+
+        protected void WriteToArduino(string message) //Burde endres. Skal endres når det byttes til interface.
         {
-            if (lightMode) SerialPort.Write("ON");
-            else SerialPort.Write("OFF");
+            SerialPort.Write(message);
         }
     }
 }

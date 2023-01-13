@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,10 +9,15 @@ namespace ArduinoCHomeController
 {
     internal class Button : Communication
     {
-        public Button(int baudRate, string portName)
+        public void ControllLight(string command)
         {
-            SerialPort.BaudRate = 9600;
-            SerialPort.PortName = "COM3";
+            if(command is "ON" or "OFF") WriteToArduino(command);
+            else if (String.IsNullOrWhiteSpace(command))
+            {
+                WriteToArduino("OFF");
+                Console.WriteLine("Closing application");
+            }
+            else Console.WriteLine($"You typed {command} this is not an option");
         }
     }
 }

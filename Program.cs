@@ -2,20 +2,20 @@
 {
     internal class Program
     {
-        static Communication communicate = new Communication(9600,"COM3");
+        private static Button button = new Button();
         static void Main(string[] args)
         {
-            communicate.StartCommunicationWithArduino();
+            Communication.SetBaudRateAndPortName(9600, "COM3");
+            Communication.StartCommunicationWithArduino();
             string command = string.Empty;
             do
             {
-                Console.WriteLine(@"To controll the light write ""on"" or ""Off"". To close the program press enter.");
-                command=Console.ReadLine();
-                if (command.ToUpper() == "ON") communicate.ControllLight(true);
-                else if (command.ToUpper() == "OFF") communicate.ControllLight(false);
+                Console.WriteLine(@"To control the light write ""on"" or ""Off"". To close the program press enter.");
+                command = Console.ReadLine().ToUpper();
+                button.ControllLight(command);
 
             } while (!String.IsNullOrEmpty(command));
-            communicate.StopCommunicationWithArduino();
+            Communication.StopCommunicationWithArduino();
         }
     }
 }
