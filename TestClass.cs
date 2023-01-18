@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.IO;
-using System.IO.Ports;
-using System.Runtime.CompilerServices;
 
 namespace ArduinoCHomeController
 {
-    internal class Communication : ICommunication
+    internal class TestClass : ICommunication
     {
-        private static readonly SerialPort SerialPort = new SerialPort() { BaudRate = 9600, PortName = "COM3" };
+        private static SerialPort? SerialPort;
+        public TestClass(SerialPort serialPort)
+        {
+            SerialPort = serialPort;
+        }
+
         public static void StartCommunicationWithArduino()
         {
             SerialPort.Open();
@@ -21,7 +24,7 @@ namespace ArduinoCHomeController
             SerialPort.Close();
         }
 
-        public void WriteToArduino(string message)
+        public void WriteToArduino(string message) //Burde endres. Skal endres når det byttes til interface.
         {
             SerialPort.Write(message);
         }
