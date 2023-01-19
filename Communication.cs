@@ -11,6 +11,7 @@ namespace ArduinoCHomeController
 {
     internal class Communication : ICommunication
     {
+
         private static readonly SerialPort SerialPort = new SerialPort() { BaudRate = 9600, PortName = "COM3" };
         public static void StartCommunicationWithArduino()
         {

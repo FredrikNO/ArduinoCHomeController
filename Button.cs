@@ -10,16 +10,19 @@ namespace ArduinoCHomeController
     internal class Button
     {
         private readonly ICommunication _communication;
-        public Button(ICommunication communication)
+        private string _portName;
+        public Button(ICommunication communication, string portName)
         {
-            _communication= communication;
+            _communication = communication;
+            _portName = portName;
         }
         public void ControllLight(string command)
         {
-            if (command is "ON" or "OFF") _communication.WriteToArduino(command);
+
+            if (command is "ON" or "OFF") _communication.WriteToArduino(_portName+" "+command);
             else if (String.IsNullOrWhiteSpace(command))
             {
-                _communication.WriteToArduino("OFF");
+                _communication.WriteToArduino(_portName + " " + command);
                 Console.WriteLine("Closing application");
             }
             else Console.WriteLine($"You typed {command} this is not an option");
