@@ -28,5 +28,12 @@ namespace ArduinoCHomeController
         {
             SerialPort.Write(message);
         }
+        public int ReadFromArduino(string message)
+        {
+            int voltage;
+            WriteToArduino(message);
+            voltage = Int32.Parse(SerialPort.ReadLine());
+            return voltage;
+        }
     }
 }

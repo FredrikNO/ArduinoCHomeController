@@ -19,10 +19,10 @@ namespace ArduinoCHomeController
         public void ControllLight(string command)
         {
 
-            if (command is "ON" or "OFF") _communication.WriteToArduino(_portName+" "+command);
+            if (command is "ON" or "OFF") _communication.WriteToArduino(_portName + ":" + command);
             else if (String.IsNullOrWhiteSpace(command))
             {
-                _communication.WriteToArduino(_portName + " " + command);
+                _communication.WriteToArduino(_portName + command);
                 Console.WriteLine("Closing application");
             }
             else Console.WriteLine($"You typed {command} this is not an option");
